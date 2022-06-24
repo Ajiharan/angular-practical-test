@@ -1,6 +1,7 @@
 <div class="wrapper">
   <form class="form-signin" [formGroup]="loginForm" (ngSubmit)="submitForm()">
     <h3 class="form-signin-heading">ACCOUNT LOGIN</h3>
+    <p class="text-danger">{{ errorMsg }}</p>
     <input
       type="text"
       class="form-control"
@@ -35,6 +36,16 @@
     >
       *password is required.
     </p>
+
+    <label class="checkbox">
+      <input
+        type="checkbox"
+        value="remember-me"
+        id="rememberMe"
+        formControlName="remember"
+      />
+      Remember me
+    </label>
     <div class="d-grid gap-2 p-4">
       <button
         class="btn btn-lg btn-primary"

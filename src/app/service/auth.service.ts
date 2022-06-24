@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Login } from '../types/user';
 
 @Injectable({
@@ -8,7 +8,18 @@ import { Login } from '../types/user';
 })
 export class AuthService {
   private baseUrl = 'https://interview.cerex.io/test/login';
-  constructor(private http: HttpClient) {}
+
+  public tokenSubject: BehaviorSubject<string | null>;
+  public currentToken: Observable<string | null>;
+
+  constructor(private http: HttpClient) {
+    this.tokenSubject = new BehaviorSubject<string | null>(null);
+    this.currentToken = this.tokenSubject?.asObservable();
+  }
+
+  public get currentTokenValue(): string | null {
+    return this.tokenSubject?.value;
+  }
 
   login(data: Login): Observable<any> {
     return this.http.post(this.baseUrl, data);
