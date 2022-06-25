@@ -101,14 +101,32 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  formatDate(date: string): Date {
+    const arr = date.split(' ');
+    arr.pop();
+    return new Date(arr.join(' '));
+  }
+
   getFilterUserAccount(): Omit<
     UserAccount,
     'userId' | 'email' | 'userRole' | 'username' | 'youtube' | 'twitter'
   > | null {
     if (!this.account) return null;
 
-    const { userId, email, userRole, username, twitter, youtube, ...rest } =
-      this.account;
-    return rest;
+    const {
+      userId,
+      email,
+      userRole,
+      username,
+      twitter,
+      youtube,
+      lastActive,
+      lastLogin,
+    } = this.account;
+
+    return {
+      lastActive: this.formatDate(lastActive + ''),
+      lastLogin: this.formatDate(lastLogin + ''),
+    };
   }
 }

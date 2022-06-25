@@ -13,7 +13,7 @@ export interface User {
   mobileNo: string;
   phone: string;
   avatarUrl: string;
-  birthDate: string;
+  birthDate: Date;
   roleProfileName: string;
 }
 
@@ -24,12 +24,12 @@ export interface UserAccount {
   youtube: string;
   email: string;
   twitter: string;
-  lastActive: string;
-  lastLogin: string;
+  lastActive: Date;
+  lastLogin: Date;
 }
 
 export interface userAdditional {
-  lastPasswordResetDate: string;
+  lastPasswordResetDate: Date;
   logoutAllSessions: boolean;
   muteSounds: boolean;
   newPassword: string;

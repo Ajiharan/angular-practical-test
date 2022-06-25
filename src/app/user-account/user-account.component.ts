@@ -29,5 +29,15 @@ export class UserAccountComponent implements OnInit {
   getRecords(): Record<string, Partial<IProfile>> {
     return this.profileData as Record<string, Partial<IProfile>>;
   }
+
+  isDate(item: any): boolean {
+    if (!(item instanceof Date)) return false;
+
+    return true;
+  }
+  convertDate(item: any) {
+    console.log('item', item);
+    return item as Date;
+  }
   ngOnInit(): void {}
 }
