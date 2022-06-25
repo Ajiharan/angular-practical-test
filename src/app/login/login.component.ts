@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
+import { LocalStorageService } from '../service/local-storage.service';
 import { ToastService } from '../service/toast.service';
 import { Login } from '../types/user';
 
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private toast: ToastService,
+    private local: LocalStorageService,
     private route: Router
   ) {}
 
@@ -35,7 +37,7 @@ export class LoginComponent implements OnInit {
       next: (res: { token: string }) => {
         console.log(res);
         if (formData.remember) {
-          localStorage.setItem('token', res.token);
+          this.local.setToken(res.token);
         }
         this.authService.tokenSubject.next(res.token);
         this.toast.success('login successfully');

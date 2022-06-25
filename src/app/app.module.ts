@@ -8,8 +8,10 @@ import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { ProfileComponent } from './profile/profile.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserAccountComponent } from './user-account/user-account.component';
 @NgModule({
-  declarations: [AppComponent, LoginComponent, ProfileComponent],
+  declarations: [AppComponent, LoginComponent, ProfileComponent, UserProfileComponent, UserAccountComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
