@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IProfile } from '../types/user';
 
 @Component({
   selector: 'app-user-account',
@@ -6,7 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-account.component.scss'],
 })
 export class UserAccountComponent implements OnInit {
-  constructor() {}
+  @Input() profileData: Partial<IProfile> | null;
 
+  constructor() {
+    this.profileData = null;
+  }
+
+  getDataKeys(): string[] {
+    if (this.profileData) {
+      return Object.keys(this.profileData);
+    }
+    return [];
+  }
+
+  getRecords(): Record<string, Partial<IProfile>> {
+    return this.profileData as Record<string, Partial<IProfile>>;
+  }
   ngOnInit(): void {}
 }
