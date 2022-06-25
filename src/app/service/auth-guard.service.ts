@@ -29,7 +29,7 @@ export class AuthGuardService implements CanActivate {
     | Promise<boolean | UrlTree> {
     const token = this.local.getToken();
     const currentToken = this.authService.currentTokenValue;
-    console.log('currentToken', currentToken);
+
     if (token || currentToken) {
       return true;
     }

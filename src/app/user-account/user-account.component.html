@@ -1,3 +1,6 @@
+<div *ngIf="loading">
+  <h2>Loading</h2>
+</div>
 <div class="card mb-3" *ngIf="profileData">
   <div class="card-body">
     <ng-container *ngFor="let item of getDataKeys()">
@@ -9,7 +12,7 @@
           class="col-sm-9 text-secondary"
           *ngIf="!isDate(item); else dateItem"
         >
-          {{ getRecords()[item] }}
+          {{ convertIcon(getRecords()[item]) }}
         </div>
         <ng-template #dateItem>
           {{ convertDate(getRecords()[item]) | amTimeAgo: true }} ago

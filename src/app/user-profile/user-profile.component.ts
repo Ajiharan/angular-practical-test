@@ -5,6 +5,9 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../service/auth.service';
+import { LocalStorageService } from '../service/local-storage.service';
 import { User, UserAccount } from '../types/user';
 
 @Component({
@@ -18,14 +21,17 @@ export class UserProfileComponent implements OnInit, OnChanges {
   @Input() userData: User | null;
   @Input() userAccount: Partial<UserAccount> | null;
 
-  constructor() {
+  constructor(
+    private local: LocalStorageService,
+    private route: Router,
+    private auth: AuthService
+  ) {
     this.userData = null;
     this.userAccount = null;
     this.loading = true;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes', changes['userData'].currentValue);
     if (
       changes['userData'].currentValue &&
       changes['userAccount'].currentValue
@@ -43,4 +49,10 @@ export class UserProfileComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {}
+
+  logout(): void {
+    this.local.removeToken();
+    this.auth.tokenSubject.next(null);
+    this.route.navigate(['/login']);
+  }
 }

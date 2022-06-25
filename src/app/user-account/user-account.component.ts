@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { IProfile } from '../types/user';
 
 @Component({
@@ -6,11 +12,19 @@ import { IProfile } from '../types/user';
   templateUrl: './user-account.component.html',
   styleUrls: ['./user-account.component.scss'],
 })
-export class UserAccountComponent implements OnInit {
+export class UserAccountComponent implements OnInit, OnChanges {
+  public loading: boolean;
   @Input() profileData: Partial<IProfile> | null;
 
   constructor() {
     this.profileData = null;
+    this.loading = true;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['profileData'].currentValue) {
+      this.loading = false;
+    }
   }
 
   getDataKeys(): string[] {
@@ -35,9 +49,16 @@ export class UserAccountComponent implements OnInit {
 
     return true;
   }
-  convertDate(item: any) {
-    console.log('item', item);
+
+  convertDate(item: any): Date {
     return item as Date;
+  }
+
+  convertIcon(item: any): string {
+    if (typeof item === 'boolean') {
+      return item ? '✔️' : '❌';
+    }
+    return item;
   }
   ngOnInit(): void {}
 }

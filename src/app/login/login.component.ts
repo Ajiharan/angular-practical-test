@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../service/auth.service';
 import { LocalStorageService } from '../service/local-storage.service';
 import { ToastService } from '../service/toast.service';
@@ -12,8 +13,9 @@ import { Login } from '../types/user';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   public errorMsg: string = '';
+  private subscription: Subscription;
 
   loginForm: FormGroup = new FormGroup({
     userName: new FormControl('', [Validators.required]),
@@ -26,16 +28,17 @@ export class LoginComponent implements OnInit {
     private toast: ToastService,
     private local: LocalStorageService,
     private route: Router
-  ) {}
+  ) {
+    this.subscription = new Subscription();
+  }
 
   ngOnInit(): void {}
 
   submitForm(): void {
     this.errorMsg = '';
     const formData: Login = this.loginForm.value;
-    this.authService.login(formData).subscribe({
+    this.subscription = this.authService.login(formData).subscribe({
       next: (res: { token: string }) => {
-        console.log(res);
         if (formData.remember) {
           this.local.setToken(res.token);
         }
@@ -48,5 +51,8 @@ export class LoginComponent implements OnInit {
         this.errorMsg = 'Invalid username or password';
       },
     });
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

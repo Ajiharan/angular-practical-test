@@ -10,6 +10,7 @@ export interface User {
   gender: string;
   language: string;
   middleName: string;
+  lastName: string;
   mobileNo: string;
   phone: string;
   avatarUrl: string;
@@ -22,6 +23,7 @@ export interface UserAccount {
   userRole: string;
   username: string;
   youtube: string;
+  facebook: string;
   email: string;
   twitter: string;
   lastActive: Date;
