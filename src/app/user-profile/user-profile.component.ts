@@ -16,7 +16,7 @@ export class UserProfileComponent implements OnInit, OnChanges {
   public loading: boolean;
 
   @Input() userData: User | null;
-  @Input() userAccount: UserAccount | null;
+  @Input() userAccount: Partial<UserAccount> | null;
 
   constructor() {
     this.userData = null;

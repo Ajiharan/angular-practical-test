@@ -100,4 +100,15 @@ export class ProfileComponent implements OnInit {
       },
     });
   }
+
+  getFilterUserAccount(): Omit<
+    UserAccount,
+    'userId' | 'email' | 'userRole' | 'username' | 'youtube' | 'twitter'
+  > | null {
+    if (!this.account) return null;
+
+    const { userId, email, userRole, username, twitter, youtube, ...rest } =
+      this.account;
+    return rest;
+  }
 }

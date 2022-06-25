@@ -15,7 +15,13 @@ export class UserAccountComponent implements OnInit {
 
   getDataKeys(): string[] {
     if (this.profileData) {
-      return Object.keys(this.profileData);
+      const filterProfile = Object.keys(this.profileData).filter((item) => {
+        if (this.getRecords()[item] !== '') {
+          return item;
+        }
+        return;
+      });
+      return filterProfile;
     }
     return [];
   }

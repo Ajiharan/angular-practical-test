@@ -8,7 +8,11 @@
         ></app-user-profile>
       </div>
       <div class="col-md-8">
-        <app-user-account></app-user-account>
+        <app-user-account
+          [profileData]="getFilterUserAccount()"
+        ></app-user-account>
+        <app-user-account [profileData]="address"></app-user-account>
+        <app-user-account [profileData]="extra"></app-user-account>
       </div>
     </div>
   </div>
