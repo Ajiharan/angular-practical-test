@@ -11,6 +11,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserAccountComponent } from './user-account/user-account.component';
 import { MomentModule } from 'ngx-moment';
+import { SpinnerComponent } from './spinner/spinner.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,6 +19,7 @@ import { MomentModule } from 'ngx-moment';
     ProfileComponent,
     UserProfileComponent,
     UserAccountComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,

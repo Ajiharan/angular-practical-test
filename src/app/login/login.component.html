@@ -1,5 +1,13 @@
 <div class="wrapper">
-  <form class="form-signin" [formGroup]="loginForm" (ngSubmit)="submitForm()">
+  <div *ngIf="loading" class="card">
+    <app-spinner></app-spinner>
+  </div>
+  <form
+    *ngIf="!loading"
+    class="form-signin"
+    [formGroup]="loginForm"
+    (ngSubmit)="submitForm()"
+  >
     <h3 class="form-signin-heading">ACCOUNT LOGIN</h3>
     <p class="text-danger">{{ errorMsg }}</p>
     <input
