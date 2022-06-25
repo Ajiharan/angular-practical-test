@@ -10,8 +10,15 @@ import { ToastrModule } from 'ngx-toastr';
 import { ProfileComponent } from './profile/profile.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserAccountComponent } from './user-account/user-account.component';
+import { MomentModule } from 'ngx-moment';
 @NgModule({
-  declarations: [AppComponent, LoginComponent, ProfileComponent, UserProfileComponent, UserAccountComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    ProfileComponent,
+    UserProfileComponent,
+    UserAccountComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -20,6 +27,7 @@ import { UserAccountComponent } from './user-account/user-account.component';
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({ timeOut: 1500 }),
+    MomentModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

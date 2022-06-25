@@ -12,7 +12,7 @@
           {{ getRecords()[item] }}
         </div>
         <ng-template #dateItem>
-          {{ convertDate(getRecords()[item]) | date }}
+          {{ convertDate(getRecords()[item]) | amTimeAgo: true }} ago
         </ng-template>
       </div>
       <hr />

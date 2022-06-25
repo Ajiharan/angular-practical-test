@@ -30,8 +30,8 @@ export class UserAccountComponent implements OnInit {
     return this.profileData as Record<string, Partial<IProfile>>;
   }
 
-  isDate(item: any): boolean {
-    if (!(item instanceof Date)) return false;
+  isDate(item: string): boolean {
+    if (!(this.getRecords()[item] instanceof Date)) return false;
 
     return true;
   }
