@@ -1,3 +1,4 @@
+@import "../util/styles/colors";
 .wrapper {
   margin-top: 5rem;
   margin-bottom: 5rem;
@@ -7,8 +8,8 @@
   max-width: 30rem;
   padding: 5rem 1rem;
   margin: 0 auto;
-  background-color: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: $background_color;
+  border: 1px solid $border_color;
 
   .form-signin-heading,
   .checkbox {
