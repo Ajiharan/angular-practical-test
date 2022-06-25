@@ -4,31 +4,36 @@ import {
   userAdditional,
   UserAddress,
 } from './../types/user';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../service/local-storage.service';
 import { ProfileService } from '../service/profile.service';
 import { IProfile } from '../types/user';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   public userData: User | null = null;
   public address: UserAddress | null = null;
   public extra: userAdditional | null = null;
   public account: UserAccount | null = null;
 
+  private subscription: Subscription;
+
   constructor(
     private profileService: ProfileService,
     private local: LocalStorageService,
     private route: Router
-  ) {}
+  ) {
+    this.subscription = new Subscription();
+  }
 
   ngOnInit(): void {
-    this.profileService.getProfile().subscribe({
+    this.subscription = this.profileService.getProfile().subscribe({
       next: (res: IProfile) => {
         const {
           address1,
@@ -39,6 +44,8 @@ export class ProfileComponent implements OnInit {
           country,
           firstName,
           fullName,
+          facebook,
+          lastName,
           gender,
           language,
           lastActive,
@@ -68,6 +75,7 @@ export class ProfileComponent implements OnInit {
           language,
           middleName,
           mobileNo,
+          lastName,
           phone,
           roleProfileName,
         };
@@ -88,13 +96,13 @@ export class ProfileComponent implements OnInit {
           userId,
           username,
           userRole,
+          facebook,
           youtube,
         };
         this.extra = rest;
       },
 
       error: (err) => {
-        console.log('err', err);
         this.local.removeToken();
         this.route.navigate(['/login']);
       },
@@ -109,24 +117,25 @@ export class ProfileComponent implements OnInit {
 
   getFilterUserAccount(): Omit<
     UserAccount,
-    'userId' | 'email' | 'userRole' | 'username' | 'youtube' | 'twitter'
+    | 'userId'
+    | 'email'
+    | 'userRole'
+    | 'username'
+    | 'youtube'
+    | 'twitter'
+    | 'facebook'
   > | null {
     if (!this.account) return null;
 
-    const {
-      userId,
-      email,
-      userRole,
-      username,
-      twitter,
-      youtube,
-      lastActive,
-      lastLogin,
-    } = this.account;
+    const { lastActive, lastLogin } = this.account;
 
     return {
       lastActive: this.formatDate(lastActive + ''),
       lastLogin: this.formatDate(lastLogin + ''),
     };
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
